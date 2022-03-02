@@ -3,11 +3,11 @@ import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 const dynamoClient = new DynamoDBClient(
     {
-        region: process.env.AWS_REGION,
-        endpoint: process.env.DB_ENDPOINT,
+        region: 'local', // process.env.AWS_REGION,
+        endpoint: 'http://localhost:8000', // process.env.DB_ENDPOINT,
         credentials: {
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            accessKeyId: 'fake',// process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: 'fake'// process.env.AWS_SECRET_ACCESS_KEY,
         }
     }
 );

@@ -12,11 +12,11 @@ export class AppRepository {
 
     async create(dto: CreateAppDto): Promise<any> {
         try {
-            const { name, age } = dto;
+            console.log(dto);
+            const { name } = dto;
             const entity = {
                 id: uuidv4(),
-                name,
-                age
+                name
             } as App;
             return await putEntity(entity);
         }

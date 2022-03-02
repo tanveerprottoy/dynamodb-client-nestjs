@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateAppDto } from './create-app.dto';
 
@@ -7,7 +7,7 @@ export class AppController {
     constructor(private readonly appService: AppService) { }
 
     @Post()
-    async create(dto: CreateAppDto): Promise<any> {
+    async create(@Body() dto: CreateAppDto): Promise<any> {
         return await this.appService.create(dto);
     }
 

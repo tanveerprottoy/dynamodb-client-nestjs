@@ -11,8 +11,7 @@ const appTableParams: CreateTableInput = {
     ],
     AttributeDefinitions: [
         { AttributeName: "id", AttributeType: "S" },
-        { AttributeName: "name", AttributeType: "S" },
-        { AttributeName: "age", AttributeType: "N" }
+        { AttributeName: "name", AttributeType: "S" }
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 2,
@@ -20,14 +19,17 @@ const appTableParams: CreateTableInput = {
     }
 }
 
-const command = new  CreateTableCommand(
-    appTableParams
-);
+export function initAppTable() {
+    console.log('initAppTable');
+    const command = new CreateTableCommand(
+        appTableParams
+    );
 
-docClient.send(
-    command
-).then(res => {
-    console.log(res);
-}).catch(err => {
-    console.log(err);
-})
+    docClient.send(
+        command
+    ).then(res => {
+        console.log(res);
+    }).catch(err => {
+        console.log(err);
+    })
+}  
