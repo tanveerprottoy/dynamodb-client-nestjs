@@ -1,5 +1,6 @@
 import { CreateTableCommand, CreateTableInput } from "@aws-sdk/client-dynamodb";
-import { docClient } from '../client'
+import { DbTableOpsInstance } from "../db-table.ops";
+import { DbClientsInstance } from '../db.clients'
 
 const appTableParams: CreateTableInput = {
     TableName: 'App',
@@ -11,7 +12,7 @@ const appTableParams: CreateTableInput = {
     ],
     AttributeDefinitions: [
         { AttributeName: "id", AttributeType: "S" },
-        { AttributeName: "name", AttributeType: "S" }
+        // { AttributeName: "name", AttributeType: "S" }
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 2,
@@ -21,15 +22,6 @@ const appTableParams: CreateTableInput = {
 
 export function initAppTable() {
     console.log('initAppTable');
-    const command = new CreateTableCommand(
-        appTableParams
-    );
-
-    docClient.send(
-        command
-    ).then(res => {
-        console.log(res);
-    }).catch(err => {
-        console.log(err);
-    })
+    //DbTableOpsInstance.create(appTableParams);
+    DbTableOpsInstance.list();
 }  

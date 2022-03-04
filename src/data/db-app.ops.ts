@@ -1,6 +1,7 @@
 import { ScanCommand } from "@aws-sdk/client-dynamodb"
 import { DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb"
-import { docClient } from "./client"
+import { DbTableDataOpsInstance } from "./db-table-data.ops"
+import { DbClientsInstance } from "./db.clients"
 import { App } from "./models/app.entity"
 
 export const putEntity = async (entity: App) => {
@@ -11,8 +12,7 @@ export const putEntity = async (entity: App) => {
             name: entity.name
         }
     }
-    const command = new PutCommand(params);
-    return docClient.send(command);
+    return await DbTableDataOpsInstance.put(params);
 }
 
 export const getEntities = async () => {
@@ -20,7 +20,7 @@ export const getEntities = async () => {
         TableName: 'Apps'
     }
     const command = new ScanCommand(params);
-    return docClient.send(command);
+    return DbClientsInstance.dbDocumentClient.send(command);
 }
 
 export const getEntity = async (id: string) => {
@@ -31,7 +31,7 @@ export const getEntity = async (id: string) => {
         }
     }
     const command = new GetCommand(params);
-    return docClient.send(command);
+    return DbClientsInstance.dbDocumentClient.send(command);
 }
 
 export const deleteEntity = async (id: string) => {
@@ -42,5 +42,5 @@ export const deleteEntity = async (id: string) => {
         }
     }
     const command = new DeleteCommand(params);
-    return docClient.send(command);
+    return DbClientsInstance.dbDocumentClient.send(command);
 }
