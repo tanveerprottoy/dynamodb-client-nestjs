@@ -22,6 +22,6 @@ const appTableParams: CreateTableInput = {
 
 export function initAppTable() {
     console.log('initAppTable');
-    //DbTableOpsInstance.create(appTableParams);
+    DbTableOpsInstance.create(appTableParams);
     DbTableOpsInstance.list();
 }  

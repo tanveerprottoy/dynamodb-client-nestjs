@@ -1,5 +1,5 @@
 import { ScanCommand } from "@aws-sdk/client-dynamodb"
-import { DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb"
+import { DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, ScanCommandInput, UpdateCommandInput } from "@aws-sdk/lib-dynamodb"
 import { DbTableDataOpsInstance } from "./db-table-data.ops"
 import { DbClientsInstance } from "./db.clients"
 import { App } from "./models/app.entity"
@@ -13,6 +13,24 @@ export const putEntity = async (entity: App) => {
         }
     }
     return await DbTableDataOpsInstance.put(params);
+}
+
+export const updateEntity = async (
+    id: string,
+    entity: App
+) => {
+    const params: UpdateCommandInput = {
+        TableName: 'Apps',
+        Key: {
+            id: id,
+        },
+        UpdateExpression: "set name = :n", // For example, "'set Title = :t, Subtitle = :s'"
+        ExpressionAttributeValues: {
+            ":n": entity.name, // For example ':t' : 'NEW_TITLE'
+        },
+        ReturnValues: "ALL_NEW"
+    };
+    return await DbTableDataOpsInstance.update(params);
 }
 
 export const getEntities = async () => {
