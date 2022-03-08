@@ -11,7 +11,7 @@ export const putEntity = async (entity: App) => {
             id: entity.id,
             name: entity.name
         }
-    }
+    };
     return await DbTableDataOpsInstance.put(params);
 }
 
@@ -36,7 +36,7 @@ export const updateEntity = async (
 export const getEntities = async () => {
     const params: ScanCommandInput = {
         TableName: 'Apps'
-    }
+    };
     const command = new ScanCommand(params);
     return DbClientsInstance.dbDocumentClient.send(command);
 }
@@ -47,7 +47,7 @@ export const getEntity = async (id: string) => {
         Key: {
             id: id
         }
-    }
+    };
     const command = new GetCommand(params);
     return DbClientsInstance.dbDocumentClient.send(command);
 }
@@ -58,7 +58,7 @@ export const deleteEntity = async (id: string) => {
         Key: {
             id: id
         }
-    }
+    };
     const command = new DeleteCommand(params);
     return DbClientsInstance.dbDocumentClient.send(command);
 }

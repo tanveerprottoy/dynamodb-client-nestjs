@@ -1,4 +1,4 @@
-import { DeleteCommand, DeleteCommandInput, PutCommand, PutCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
+import { BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import { DbClientsInstance } from "./db.clients";
 
 class DbTableDataOps {
@@ -17,6 +17,7 @@ class DbTableDataOps {
         }
         catch(e) {
             console.log(e);
+            return e;
         }
     }
 
@@ -30,6 +31,7 @@ class DbTableDataOps {
         }
         catch(e) {
             console.log(e);
+            return e;
         }
     }
 
@@ -43,6 +45,21 @@ class DbTableDataOps {
         }
         catch(e) {
             console.log(e);
+            return e;
+        }
+    }
+
+    query = async (
+        params: QueryCommandInput
+    ) => {
+        try {
+            return await DbClientsInstance.dbDocumentClient.send(
+                new QueryCommand(params)
+            );
+        }
+        catch(e) {
+            console.log(e);
+            return e;
         }
     }
 
@@ -56,6 +73,21 @@ class DbTableDataOps {
         }
         catch(e) {
             console.log(e);
+            return e;
+        }
+    }
+
+    batchGet = async (
+        params: BatchGetCommandInput
+    ) => {
+        try {
+            return await DbClientsInstance.dbDocumentClient.send(
+                new BatchGetCommand(params)
+            );
+        }
+        catch(e) {
+            console.log(e);
+            return e;
         }
     }
 
@@ -69,6 +101,7 @@ class DbTableDataOps {
         }
         catch(e) {
             console.log(e);
+            return e;
         }
     }
 }
