@@ -2,11 +2,15 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 class DbClients {
+    private static instance: DbClients;
     public dynamoClient: DynamoDBClient;
     public dbDocumentClient: DynamoDBDocumentClient
 
-    constructor() {
+    private constructor() {
         console.log('DbClient init');
+        if(DbClients.instance) {
+            throw new Error("Error - already initialized");
+        }
         this.dynamoClient = new DynamoDBClient(
             {
                 region: 'local', // process.env.AWS_REGION,
@@ -21,6 +25,11 @@ class DbClients {
             this.dynamoClient
         );
     }
+
+    static getInstance(): DbClients {
+        DbClients.instance = DbClients.instance || new DbClients();
+        return DbClients.instance;
+    }
 }
 
-export const DbClientsInstance = new DbClients();
+export const DbClientsInstance = DbClients.getInstance();

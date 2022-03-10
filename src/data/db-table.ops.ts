@@ -3,9 +3,18 @@ import { Logger } from "@nestjs/common";
 import { DbClientsInstance } from "./db.clients";
 
 class DbTableOps {
+    private static instance: DbTableOps;
 
-    constructor() {
+    private constructor() {
         console.log('DbTableOps init');
+        if(DbTableOps.instance) {
+            throw new Error("Error - already initialized");
+        }
+    }
+
+    static getInstance(): DbTableOps {
+        DbTableOps.instance = DbTableOps.instance || new DbTableOps();
+        return DbTableOps.instance;
     }
 
     create = async (
@@ -62,4 +71,4 @@ class DbTableOps {
     }
 }
 
-export const DbTableOpsInstance = new DbTableOps();
+export const DbTableOpsInstance = DbTableOps.getInstance();

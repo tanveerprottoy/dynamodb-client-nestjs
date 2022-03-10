@@ -1,10 +1,19 @@
-import { BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
+import { BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import { DbClientsInstance } from "./db.clients";
 
 class DbTableDataOps {
+    private static instance: DbTableDataOps;
 
-    constructor() {
+    private constructor() {
         console.log('DbTableDataOps init');
+        if(DbTableDataOps.instance) {
+            throw new Error("Error - already initialized");
+        }
+    }
+
+    static getInstance(): DbTableDataOps {
+        DbTableDataOps.instance = DbTableDataOps.instance || new DbTableDataOps();
+        return DbTableDataOps.instance;
     }
 
     put = async (
@@ -64,11 +73,11 @@ class DbTableDataOps {
     }
 
     get = async (
-        params: ScanCommandInput
+        params: GetCommandInput
     ) => {
         try {
             return await DbClientsInstance.dbDocumentClient.send(
-                new ScanCommand(params)
+                new GetCommand(params)
             );
         }
         catch(e) {
@@ -106,4 +115,4 @@ class DbTableDataOps {
     }
 }
 
-export const DbTableDataOpsInstance = new DbTableDataOps();
+export const DbTableDataOpsInstance = DbTableDataOps.getInstance();
