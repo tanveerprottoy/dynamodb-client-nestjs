@@ -1,20 +1,20 @@
-import { CreateTableCommand, CreateTableInput, DeleteTableCommand, DeleteTableInput, DescribeTableCommand, DescribeTableInput, ListTablesCommand, ListTablesInput } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand, CreateTableInput, DeleteTableCommand, DeleteTableInput, DescribeTableCommand, DescribeTableInput, ListTablesCommand, ListTablesInput, UpdateTableCommand, UpdateTableInput } from "@aws-sdk/client-dynamodb";
 import { Logger } from "@nestjs/common";
 import { DbClientsInstance } from "./db.clients";
 
-class DbTableOps {
-    private static instance: DbTableOps;
+class DbControlOps {
+    private static instance: DbControlOps;
 
     private constructor() {
         console.log('DbTableOps init');
-        if(DbTableOps.instance) {
+        if(DbControlOps.instance) {
             throw new Error("Error - already initialized");
         }
     }
 
-    static getInstance(): DbTableOps {
-        DbTableOps.instance = DbTableOps.instance || new DbTableOps();
-        return DbTableOps.instance;
+    static getInstance(): DbControlOps {
+        DbControlOps.instance = DbControlOps.instance || new DbControlOps();
+        return DbControlOps.instance;
     }
 
     create = async (
@@ -27,7 +27,19 @@ class DbTableOps {
         }
         catch(e) {
             Logger.error(e);
-            console.log(e);
+        }
+    }
+
+    update = async (
+        params: UpdateTableInput
+    ) => {
+        try {
+            return await DbClientsInstance.dbDocumentClient.send(
+                new UpdateTableCommand(params)
+            );
+        }
+        catch(e) {
+            Logger.error(e);
         }
     }
 
@@ -40,7 +52,7 @@ class DbTableOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
         }
     }
 
@@ -53,7 +65,7 @@ class DbTableOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
         }
     }
 
@@ -66,9 +78,9 @@ class DbTableOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
         }
     }
 }
 
-export const DbTableOpsInstance = DbTableOps.getInstance();
+export const DbControlOpsInstance = DbControlOps.getInstance();

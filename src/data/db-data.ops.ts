@@ -1,19 +1,20 @@
 import { BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
+import { Logger } from "@nestjs/common";
 import { DbClientsInstance } from "./db.clients";
 
-class DbTableDataOps {
-    private static instance: DbTableDataOps;
+class DbDataOps {
+    private static instance: DbDataOps;
 
     private constructor() {
         console.log('DbTableDataOps init');
-        if(DbTableDataOps.instance) {
+        if(DbDataOps.instance) {
             throw new Error("Error - already initialized");
         }
     }
 
-    static getInstance(): DbTableDataOps {
-        DbTableDataOps.instance = DbTableDataOps.instance || new DbTableDataOps();
-        return DbTableDataOps.instance;
+    static getInstance(): DbDataOps {
+        DbDataOps.instance = DbDataOps.instance || new DbDataOps();
+        return DbDataOps.instance;
     }
 
     put = async (
@@ -25,7 +26,7 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
@@ -39,7 +40,7 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
@@ -53,7 +54,7 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
@@ -67,7 +68,7 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
@@ -81,7 +82,7 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
@@ -95,7 +96,7 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
@@ -109,10 +110,10 @@ class DbTableDataOps {
             );
         }
         catch(e) {
-            console.log(e);
+            Logger.error(e);
             return e;
         }
     }
 }
 
-export const DbTableDataOpsInstance = DbTableDataOps.getInstance();
+export const DbDataOpsInstance = DbDataOps.getInstance();

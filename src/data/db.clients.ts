@@ -11,6 +11,20 @@ class DbClients {
         if(DbClients.instance) {
             throw new Error("Error - already initialized");
         }
+        const marshallOptions = {
+            // Whether to automatically convert empty strings, blobs, and sets to `null`.
+            convertEmptyValues: false, // false, by default.
+            // Whether to remove undefined values while marshalling.
+            removeUndefinedValues: false, // false, by default.
+            // Whether to convert typeof object to map attribute.
+            convertClassInstanceToMap: false, // false, by default.
+        };
+
+        const unmarshallOptions = {
+            // Whether to return numbers as a string instead of converting them to native JavaScript numbers.
+            wrapNumbers: false, // false, by default.
+        };
+        const translateConfig = { marshallOptions, unmarshallOptions };
         this.dynamoClient = new DynamoDBClient(
             {
                 region: 'local', // process.env.AWS_REGION,
@@ -22,7 +36,8 @@ class DbClients {
             }
         );
         this.dbDocumentClient = DynamoDBDocumentClient.from(
-            this.dynamoClient
+            this.dynamoClient,
+            translateConfig
         );
     }
 

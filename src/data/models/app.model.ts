@@ -1,5 +1,5 @@
 import { CreateTableCommand, CreateTableInput } from "@aws-sdk/client-dynamodb";
-import { DbTableOpsInstance } from "../db-table.ops";
+import { DbControlOpsInstance } from "../db-control.ops";
 import { DbClientsInstance } from '../db.clients'
 
 const appTableParams: CreateTableInput = {
@@ -22,6 +22,6 @@ const appTableParams: CreateTableInput = {
 
 export function initAppTable() {
     console.log('initAppTable');
-    DbTableOpsInstance.create(appTableParams);
-    DbTableOpsInstance.list();
+    DbControlOpsInstance.create(appTableParams);
+    DbControlOpsInstance.list();
 }  

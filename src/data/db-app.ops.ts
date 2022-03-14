@@ -1,6 +1,6 @@
 import { ScanCommand } from "@aws-sdk/client-dynamodb"
 import { DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, ScanCommandInput, UpdateCommandInput } from "@aws-sdk/lib-dynamodb"
-import { DbTableDataOpsInstance } from "./db-table-data.ops"
+import { DbDataOpsInstance } from "./db-data.ops"
 import { DbClientsInstance } from "./db.clients"
 import { App } from "./models/app.entity"
 
@@ -12,7 +12,7 @@ export const putEntity = async (entity: App) => {
             name: entity.name
         }
     };
-    return await DbTableDataOpsInstance.put(params);
+    return await DbDataOpsInstance.put(params);
 }
 
 export const updateEntity = async (
@@ -30,7 +30,7 @@ export const updateEntity = async (
         },
         ReturnValues: "ALL_NEW"
     };
-    return await DbTableDataOpsInstance.update(params);
+    return await DbDataOpsInstance.update(params);
 }
 
 export const getEntities = async () => {
