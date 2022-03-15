@@ -8,7 +8,7 @@ export class DbClientsProvider {
     public dbDocumentClient: DynamoDBDocumentClient
 
     constructor() {
-        console.log('DbClient init');
+        console.log('DbClientsProvider init');
         this.dynamoClient = new DynamoDBClient(
             {
                 region: 'local', // process.env.AWS_REGION,

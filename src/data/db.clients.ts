@@ -7,7 +7,7 @@ class DbClients {
     public dbDocumentClient: DynamoDBDocumentClient
 
     private constructor() {
-        console.log('DbClient init');
+        console.log('DbClients init');
         if(DbClients.instance) {
             throw new Error("Error - already initialized");
         }
@@ -19,7 +19,6 @@ class DbClients {
             // Whether to convert typeof object to map attribute.
             convertClassInstanceToMap: false, // false, by default.
         };
-
         const unmarshallOptions = {
             // Whether to return numbers as a string instead of converting them to native JavaScript numbers.
             wrapNumbers: false, // false, by default.

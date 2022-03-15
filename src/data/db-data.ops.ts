@@ -6,7 +6,7 @@ class DbDataOps {
     private static instance: DbDataOps;
 
     private constructor() {
-        console.log('DbTableDataOps init');
+        console.log('DbDataOps init');
         if(DbDataOps.instance) {
             throw new Error("Error - already initialized");
         }
