@@ -11,6 +11,9 @@ class DbClients {
         if(DbClients.instance) {
             throw new Error("Error - already initialized");
         }
+    }
+
+    init() {
         const marshallOptions = {
             // Whether to automatically convert empty strings, blobs, and sets to `null`.
             convertEmptyValues: false, // false, by default.
@@ -26,11 +29,11 @@ class DbClients {
         const translateConfig = { marshallOptions, unmarshallOptions };
         this.dynamoClient = new DynamoDBClient(
             {
-                region: 'local', // process.env.AWS_REGION,
-                endpoint: 'http://localhost:8000', // process.env.DB_ENDPOINT,
+                region: process.env.DB_REGION,
+                endpoint: process.env.DB_ENDPOINT,
                 credentials: {
-                    accessKeyId: 'fake',// process.env.AWS_ACCESS_KEY_ID,
-                    secretAccessKey: 'fake'// process.env.AWS_SECRET_ACCESS_KEY,
+                    accessKeyId: process.env.DB_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.DB_SECRET_ACCESS_KEY,
                 }
             }
         );

@@ -1,4 +1,4 @@
-import { BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
+import { BatchExecuteStatementCommand, BatchExecuteStatementCommandInput, BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, ExecuteStatementCommand, ExecuteStatementCommandInput, ExecuteTransactionCommand, ExecuteTransactionCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import { Logger } from "@nestjs/common";
 import { DbClientsInstance } from "./db.clients";
 
@@ -93,6 +93,48 @@ class DbDataOps {
         try {
             return await DbClientsInstance.dbDocumentClient.send(
                 new BatchGetCommand(params)
+            );
+        }
+        catch(e) {
+            Logger.error(e);
+            return e;
+        }
+    }
+
+    executeStatement = async (
+        params: ExecuteStatementCommandInput
+    ) => {
+        try {
+            return await DbClientsInstance.dbDocumentClient.send(
+                new ExecuteStatementCommand(params)
+            );
+        }
+        catch(e) {
+            Logger.error(e);
+            return e;
+        }
+    }
+
+    executeTransaction = async (
+        params: ExecuteTransactionCommandInput
+    ) => {
+        try {
+            return await DbClientsInstance.dbDocumentClient.send(
+                new ExecuteTransactionCommand(params)
+            );
+        }
+        catch(e) {
+            Logger.error(e);
+            return e;
+        }
+    }
+
+    batchExecuteStatement = async (
+        params: BatchExecuteStatementCommandInput
+    ) => {
+        try {
+            return await DbClientsInstance.dbDocumentClient.send(
+                new BatchExecuteStatementCommand(params)
             );
         }
         catch(e) {

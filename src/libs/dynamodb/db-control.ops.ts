@@ -1,4 +1,4 @@
-import { CreateTableCommand, CreateTableInput, DeleteTableCommand, DeleteTableInput, DescribeTableCommand, DescribeTableInput, ListTablesCommand, ListTablesInput, UpdateTableCommand, UpdateTableInput } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand, CreateTableInput, DeleteTableCommand, DeleteTableInput, DescribeTableCommand, DescribeTableInput, ListTablesCommand, UpdateTableCommand, UpdateTableInput } from "@aws-sdk/client-dynamodb";
 import { Logger } from "@nestjs/common";
 import { DbClientsInstance } from "./db.clients";
 

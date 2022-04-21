@@ -1,13 +1,13 @@
-import { CreateTableCommand, CreateTableInput } from "@aws-sdk/client-dynamodb";
-import { DbControlOpsInstance } from "../db-control.ops";
-import { DbClientsInstance } from '../db.clients'
+import { CreateTableInput } from "@aws-sdk/client-dynamodb";
+import { Constants } from "../../constants";
+import { DbControlOpsInstance } from "../../libs/dynamodb";
 
 const appTableParams: CreateTableInput = {
-    TableName: 'App',
+    TableName: Constants.APPS_TABLE,
     KeySchema: [
         {
-            AttributeName: 'id',
-            KeyType: 'HASH'
+            AttributeName: "id",
+            KeyType: "HASH"
         }
     ],
     AttributeDefinitions: [
@@ -15,13 +15,13 @@ const appTableParams: CreateTableInput = {
         // { AttributeName: "name", AttributeType: "S" }
     ],
     ProvisionedThroughput: {
-        ReadCapacityUnits: 2,
-        WriteCapacityUnits: 2
+        ReadCapacityUnits: 1,
+        WriteCapacityUnits: 1
     }
 }
 
 export function initAppTable() {
-    console.log('initAppTable');
+    console.log("initAppTable");
     DbControlOpsInstance.create(appTableParams);
     DbControlOpsInstance.list();
 }  
