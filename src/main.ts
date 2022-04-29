@@ -9,8 +9,8 @@ async function initDynamodb() {
 
 async function bootstrap() {
     DbClientsInstance.init();
-    const app = await NestFactory.create(AppModule);
     initDynamodb();
+    const app = await NestFactory.create(AppModule);
     await app.listen(3000);
 }
 
