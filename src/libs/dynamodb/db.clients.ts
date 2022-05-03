@@ -3,7 +3,7 @@ import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 class DbClients {
     private static instance: DbClients;
-    public dynamoClient: DynamoDBClient;
+    public dbClient: DynamoDBClient;
     public dbDocumentClient: DynamoDBDocumentClient
 
     private constructor() {
@@ -27,7 +27,7 @@ class DbClients {
             wrapNumbers: false, // false, by default.
         };
         const translateConfig = { marshallOptions, unmarshallOptions };
-        this.dynamoClient = new DynamoDBClient(
+        this.dbClient = new DynamoDBClient(
             {
                 region: process.env.DB_REGION,
                 endpoint: process.env.DB_ENDPOINT,
@@ -38,7 +38,7 @@ class DbClients {
             }
         );
         this.dbDocumentClient = DynamoDBDocumentClient.from(
-            this.dynamoClient,
+            this.dbClient,
             translateConfig
         );
     }
@@ -48,7 +48,7 @@ class DbClients {
     */
     destroy() {
         this.dbDocumentClient.destroy();
-        this.dynamoClient.destroy();
+        this.dbClient.destroy();
     }
 
     static getInstance(): DbClients {
