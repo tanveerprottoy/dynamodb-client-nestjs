@@ -9,9 +9,7 @@ import { Constants } from "./constants";
 @Injectable()
 export class AppRepository {
 
-
-
-    async create(dto: CreateAppDto): Promise<any> {
+    async create(dto: CreateAppDto): Promise<App | null> {
         try {
             console.log(dto);
             const { name } = dto;
@@ -26,17 +24,17 @@ export class AppRepository {
             const data = await DbDataOpsInstance.put(params);
             console.log(data);
             if(data.$metadata.httpStatusCode == Constants.HTTP_200) {
-                return item as unknown as Notification;
+                return item;
             }
             return null;
         }
         catch(e) {
-            console.log(e);
+            console.error(e);
             return null;
         }
     }
 
-    async findAll(): Promise<any> {
+    async findAll(): Promise<App[]> {
         try {
             const params: ScanCommandInput = {
                 TableName: Constants.APPS_TABLE,
@@ -52,7 +50,7 @@ export class AppRepository {
         }
     }
 
-    async findOne(id: string): Promise<any> {
+    async findOne(id: string): Promise<App | null> {
         try {
             const params: GetCommandInput = {
                 TableName: Constants.APPS_TABLE,
@@ -69,7 +67,7 @@ export class AppRepository {
         }
     }
 
-    async delete(id: string): Promise<any> {
+    async delete(id: string): Promise<App | null> {
         try {
             const params: DeleteCommandInput = {
                 TableName: Constants.APPS_TABLE,
@@ -81,7 +79,7 @@ export class AppRepository {
             return data.Item;
         }
         catch(e) {
-            console.log(e);
+            console.error(e);
             return null;
         }
     }
