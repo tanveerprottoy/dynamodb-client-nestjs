@@ -3,11 +3,16 @@ import { CreateAppDto } from "./create-app.dto";
 import { App } from "./data/entities/app.entity";
 import { v4 as uuidv4 } from 'uuid';
 import { DbDataOpsInstance } from "./libs/dynamodb";
-import { DeleteCommandInput, GetCommandInput, PutCommandInput, ScanCommandInput, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
+import { DeleteCommandInput, GetCommandInput, PutCommand, PutCommandInput, ScanCommandInput, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import { Constants } from "./constants";
+import { DbClientsProvider } from "./data/db-clients.provider";
 
 @Injectable()
 export class AppRepository {
+
+    constructor(
+        private readonly dbClientsProvider: DbClientsProvider
+    ) { }
 
     async create(dto: CreateAppDto): Promise<App | null> {
         try {
@@ -22,6 +27,33 @@ export class AppRepository {
                 Item: item
             };
             const data = await DbDataOpsInstance.put(params);
+            console.log(data);
+            if(data.$metadata.httpStatusCode == Constants.HTTP_200) {
+                return item;
+            }
+            return null;
+        }
+        catch(e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async createWithProvider(dto: CreateAppDto): Promise<App | null> {
+        try {
+            console.log(dto);
+            const { name } = dto;
+            const item = {
+                id: uuidv4(),
+                name
+            } as App;
+            const params: PutCommandInput = {
+                TableName: Constants.APPS_TABLE,
+                Item: item
+            };
+            const data = await this.dbClientsProvider.dbDocumentClient.send(
+                new PutCommand(params)
+            );
             console.log(data);
             if(data.$metadata.httpStatusCode == Constants.HTTP_200) {
                 return item;
