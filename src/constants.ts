@@ -1,4 +1,6 @@
 export const Constants = {
+    API: "api",
+    API_VERSION_1: "1",
     GENERIC_ERROR: "An error occurred",
     APPS_TABLE: "Apps",
     HTTP_200: 200, // ok

@@ -1,8 +1,12 @@
 import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Constants } from "./constants";
 import { CreateAppDto } from './create-app.dto';
 
-@Controller()
+@Controller({
+    path: "",
+    version: Constants.API_VERSION_1
+})
 export class AppController {
     constructor(private readonly appService: AppService) { }
 
