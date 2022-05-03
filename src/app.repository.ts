@@ -3,7 +3,7 @@ import { CreateAppDto } from "./create-app.dto";
 import { App } from "./data/entities/app.entity";
 import { v4 as uuidv4 } from 'uuid';
 import { DbDataOpsInstance } from "./libs/dynamodb";
-import { DeleteCommandInput, GetCommandInput, PutCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
+import { DeleteCommandInput, GetCommandInput, PutCommandInput, ScanCommandInput, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import { Constants } from "./constants";
 
 @Injectable()
@@ -59,6 +59,23 @@ export class AppRepository {
                 }
             }
             const data = await DbDataOpsInstance.get(params);
+            return data.Item;
+        }
+        catch(e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async update(id: string): Promise<App | null> {
+        try {
+            const params: UpdateCommandInput = {
+                TableName: Constants.APPS_TABLE,
+                Key: {
+                    id: id
+                }
+            }
+            const data = await DbDataOpsInstance.update(params);
             return data.Item;
         }
         catch(e) {
