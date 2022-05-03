@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateAppDto } from './create-app.dto';
 
@@ -19,6 +19,11 @@ export class AppController {
     @Get()
     async findOne(id: string): Promise<any> {
         return await this.appService.findOne(id);
+    }
+
+    @Patch()
+    async update(id: string): Promise<any> {
+        return await this.appService.update(id);
     }
 
     @Delete()

@@ -21,6 +21,10 @@ export class AppService {
         return await this.repository.findOne(id);
     }
 
+    async update(id: string): Promise<any> {
+        return await this.repository.update(id);
+    }
+
     async delete(id: string): Promise<any> {
         return await this.repository.delete(id);
     }
