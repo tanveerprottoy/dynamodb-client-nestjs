@@ -43,6 +43,14 @@ class DbClients {
         );
     }
 
+    /**
+    * Destroys the Dbclients
+    */
+    destroy() {
+        this.dbDocumentClient.destroy();
+        this.dynamoClient.destroy();
+    }
+
     static getInstance(): DbClients {
         DbClients.instance = DbClients.instance || new DbClients();
         return DbClients.instance;
