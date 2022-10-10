@@ -1,5 +1,5 @@
 import { BatchExecuteStatementCommand, BatchExecuteStatementCommandInput, BatchGetCommand, BatchGetCommandInput, DeleteCommand, DeleteCommandInput, ExecuteStatementCommand, ExecuteStatementCommandInput, ExecuteTransactionCommand, ExecuteTransactionCommandInput, GetCommand, GetCommandInput, PutCommand, PutCommandInput, QueryCommand, QueryCommandInput, ScanCommand, ScanCommandInput, UpdateCommand, UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
-import { Logger } from "@nestjs/common";
+import { ErrorUtils } from "../../error.utils";
 import { DbClientsInstance } from "./db.clients";
 
 class DbDataOps {
@@ -26,8 +26,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -40,8 +39,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -54,8 +52,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -68,8 +65,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -82,8 +78,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -96,8 +91,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -110,8 +104,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -124,8 +117,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -138,8 +130,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -152,8 +143,7 @@ class DbDataOps {
             );
         }
         catch(e) {
-            Logger.error(e);
-            return e;
+            ErrorUtils.throwError(e);
         }
     }
 }

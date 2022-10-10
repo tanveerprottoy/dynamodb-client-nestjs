@@ -1,5 +1,5 @@
 import { CreateTableCommand, CreateTableInput, DeleteTableCommand, DeleteTableInput, DescribeTableCommand, DescribeTableInput, ListTablesCommand, UpdateTableCommand, UpdateTableInput } from "@aws-sdk/client-dynamodb";
-import { Logger } from "@nestjs/common";
+import { ErrorUtils } from "../../error.utils";
 import { DbClientsInstance } from "./db.clients";
 
 class DbControlOps {
@@ -26,7 +26,7 @@ class DbControlOps {
             );
         }
         catch(e) {
-            Logger.error(e);
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -39,20 +39,18 @@ class DbControlOps {
             );
         }
         catch(e) {
-            Logger.error(e);
+            ErrorUtils.throwError(e);
         }
     }
 
-    list = async (
-        // params: ListTablesInput
-    ) => {
+    list = async () => {
         try {
             return await DbClientsInstance.dbDocumentClient.send(
                 new ListTablesCommand({})
             );
         }
         catch(e) {
-            Logger.error(e);
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -65,7 +63,7 @@ class DbControlOps {
             );
         }
         catch(e) {
-            Logger.error(e);
+            ErrorUtils.throwError(e);
         }
     }
 
@@ -78,7 +76,7 @@ class DbControlOps {
             );
         }
         catch(e) {
-            Logger.error(e);
+            ErrorUtils.throwError(e);
         }
     }
 }
