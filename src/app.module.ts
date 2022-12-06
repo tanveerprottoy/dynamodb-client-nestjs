@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppRepository } from './app.repository';
 import { AppService } from './app.service';
 import { DbClientsProvider } from "./data/db-clients.provider";
+import { SampleRepository } from "./sample.repository";
+import { SampleService } from "./sample.service";
 
 @Module({
     imports: [
@@ -12,8 +14,10 @@ import { DbClientsProvider } from "./data/db-clients.provider";
     controllers: [AppController],
     providers: [
         AppService,
+        SampleService,
         DbClientsProvider,
-        AppRepository
+        AppRepository,
+        SampleRepository,
     ],
 })
 export class AppModule { }
